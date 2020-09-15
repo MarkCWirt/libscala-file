@@ -205,6 +205,6 @@ To uninstall simply delete these files.
     Install the project...
     -- Install configuration: "Release"
     -- Installing: /usr/local/share/doc/libscala-file/README.rst
-    -- Installing: /usr/local/share/doc/libscala-file/LICENSE.rst
+    -- Installing: /usr/local/share/doc/libscala-file/LICENSE
     -- Installing: /usr/local/lib/libscala-file.a
     -- Installing: /usr/local/include/scala_file.hpp
