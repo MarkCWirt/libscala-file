@@ -22,7 +22,7 @@ add_subdirectory(tests)
 
 # Installation
 install(FILES README.rst DESTINATION share/doc/libscala-file)
-install(FILES LICENSE.rst DESTINATION share/doc/libscala-file)
+install(FILES LICENSE DESTINATION share/doc/libscala-file)
 
 # Stuff that Code added 
 
