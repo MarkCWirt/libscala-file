@@ -1,0 +1,10 @@
+! According to the spec, a raw number should be considered a ratio over 1
+!
+Implicit Ratios
+5
+!
+2
+3/1
+4
+5/1
+6

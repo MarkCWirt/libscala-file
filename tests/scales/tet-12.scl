@@ -1,0 +1,27 @@
+! 12-TET. 
+! In addition to basic loading, this test will ensure:
+!
+!   That the label is optional and ignored
+!   That the decimal point is respected.
+!   That whitespace is allowed before comments (extension to spec, perhaps?)
+!   That whitespace is allowed before entries
+!   That blank lines are processed correctly (ignored, perhaps an extension)
+!
+12 tone equal temperament
+12
+!
+100.0 cents
+200.0
+  300.0 cents   ! Whitespace before entry.  Also arbitrary label
+400.0 cents
+500.0
+! A blank line follows
+
+600.0 cents
+700.0 cents
+800.
+900. cents
+   ! Whitespace before the comment
+1000.0 cents
+1100.0 cents
+1200.0 cents
