@@ -10,14 +10,16 @@ learning C++ development, so I used this work to create a
 - It has unit tests and a way to exercise them. Again, I chose CTest (part of 
   CMake).
 - I could create a reasonable development environment to work with the code.
-  This lies outside the code base, but if you're curious, I chose VS Code, with 
-  the ``C/C++``, ``C++ Advanced Linting``, and ``CMake Tools`` extensions. I'm not 
-  really a fan of Microsoft products, but VS Code is not horrible (I use it in 
-  my day job for Python development).
 
 As such, the code may be a bit wonky.  I believe it works and does what it 
 is supposed to, but I don't know if the coding is idiomatic for C++, or even 
 what idiomatic C++ code *is*.
+
+(If you're curious about the development environment I created to work with 
+the code, , I chose VS Code, with the ``C/C++``, ``C++ Advanced Linting``,
+and ``CMake Tools`` extensions. The linting tool is configured to use 
+``Cppcheck`` and CLang (I'm on Linux). I'm not really a fan of Microsoft products,
+but VS Code is not horrible (I use it in  my day job for Python development).)
 
 About 
 -----
@@ -89,7 +91,7 @@ this implementation I:
 Given this, this code should parse all valid Scala files, as they are (perhaps) 
 a subset of files that this code can parse.
 
-**If this doesn't suit you**: You can define the macro ``SCALA_STRICT`` in ``scala_file.cpp`` 
+**If this doesn't suit you**: You can define the macro ``SCALA_STRICT`` in ``scala_file.hpp`` 
 to enforce more strict adherence to the standard as detailed.  If you do this
 
 - Comments must begin in the first column
@@ -194,10 +196,12 @@ The test suite will run seven different input files. They should run without iss
 (unless you're compiling in strict mode, in which case six of the tests 
 will pass).
 
-By default your system will probably try to install to ``/usr/local``,
+By default your system will probably try to install to ``/usr/local``
+(unless you're on Windows, which has other conventions),
 but this can be changed be defining ``CMAKE_INSTALL_PREFIX``.
 A header file will be written to ``include``, a library archive 
-written to ``lib``, and documentation to ``share/doc/libscala-file``.
+written to ``lib``, and documentation to ``share/doc/li#define SCALA_STRICT
+kbscala-file``.
 To uninstall simply delete these files.
 
 ::

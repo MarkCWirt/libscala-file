@@ -5,7 +5,14 @@
 #include <math.h>
 #include <vector>
 
+
+// Define this before compilation if you want a stricter adherence 
+// to the specification.
+
+// #define SCALA_STRICT
+
 namespace scala {
+
     struct degree {
 
         double ratio;
