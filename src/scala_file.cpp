@@ -42,7 +42,7 @@ namespace scala {
                 // Blank line. Discard. This may be an extension of the format.
 #ifdef SCALA_STRICT
                 if (description_parsed) {
-                    // If we're at a blank line which is not the descirption, assume it's 
+                    // If we're at a blank line which is not the description, assume it's 
                     // a final linefeed at the end of the file.
                     break;
                 }
