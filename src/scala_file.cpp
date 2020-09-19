@@ -7,8 +7,6 @@
 
 #include "scala_file.hpp"
 
-//#define SCALA_STRICT
-
 namespace scala {
     scale read_file(std::ifstream& input_file){ 
         /* 
