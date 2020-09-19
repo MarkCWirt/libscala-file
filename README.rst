@@ -1,5 +1,5 @@
-A Library for Reading Scala Scale Files
-=======================================
+``libscala-file``: A Library for Reading Scala Scale Files
+==========================================================
 
 
 **Note**: This project is something of a "hello world." I am interested in 
