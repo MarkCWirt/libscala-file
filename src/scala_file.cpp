@@ -1,3 +1,7 @@
+/****************************************************************
+          libscala-file, (C) 2020 Mark Conway Wirt
+            See LICENSE for licensing terms (MIT)
+ ****************************************************************/
 
 #include <iostream>
 #include <fstream>
