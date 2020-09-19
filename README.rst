@@ -16,7 +16,7 @@ is supposed to, but I don't know if the coding is idiomatic for C++, or even
 what idiomatic C++ code *is*.
 
 (If you're curious about the development environment I created to work with 
-the code, , I chose VS Code, with the ``C/C++``, ``C++ Advanced Linting``,
+the code, I chose VS Code, with the ``C/C++``, ``C++ Advanced Linting``,
 and ``CMake Tools`` extensions. The linting tool is configured to use 
 ``Cppcheck`` and CLang (I'm on Linux). I'm not really a fan of Microsoft products,
 but VS Code is not horrible (I use it in  my day job for Python development).)
