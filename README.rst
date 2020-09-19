@@ -201,8 +201,7 @@ By default your system will probably try to install to ``/usr/local``
 (unless you're on Windows, which has other conventions),
 but this can be changed be defining ``CMAKE_INSTALL_PREFIX``.
 A header file will be written to ``include``, a library archive 
-written to ``lib``, and documentation to ``share/doc/li#define SCALA_STRICT
-kbscala-file``.
+written to ``lib``, and documentation to ``share/doc/libscala-file``.
 To uninstall simply delete these files.
 
 ::
