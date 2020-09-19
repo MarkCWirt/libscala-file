@@ -92,7 +92,8 @@ Given this, this code should parse all valid Scala files, as they are (perhaps)
 a subset of files that this code can parse.
 
 **If this doesn't suit you**: You can define the macro ``SCALA_STRICT`` in ``scala_file.hpp`` 
-to enforce more strict adherence to the standard as detailed.  If you do this
+before compilation to enforce more strict adherence to the standard as detailed.  
+If you do this
 
 - Comments must begin in the first column
 - Only the description can be blank. If further blank lines are encountered it is 
