@@ -10,7 +10,7 @@ using namespace std;
 int main(int, char**) {
     ifstream test_scale; 
     test_scale.open("scales/just.scl");
-    scala::scale loaded_scale = scala::read_file(test_scale);
+    scala::scale loaded_scale = scala::read_scl(test_scale);
 
     /*
         Ensure that ratios are loaded correctly in a just-intonation files

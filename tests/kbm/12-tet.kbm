@@ -1,0 +1,42 @@
+! Scala keyboard mapping file, 12-tet
+!
+! This keyboard mapping file could be used with a 12 TET tuning 
+! file to create a totally non-microtonal microtonal system.
+!
+! Map size. There should be an entry for each at the end.
+12
+! First input degree to map. These are MIDI note numbers. Internally 
+! MIDI uses a 0-based numbering scheme, although most of the user 
+! documentation hides this fact. Scala uses 0-based measures.
+0
+! Last degree to map. Again, a MIDI note number
+127
+! MIDI note that corresponds to degree 0 of the mapping. In the documentation this is 
+! called the "middle" note.  Not exactly sure why, but this convention is followed here
+! (for example, in the struct returned from read_kbm).
+60
+! Reference note (MIDI number). For absolute tuning.
+69
+! Frequency of the reference note. Hertz. Float.
+440.0
+! Scale degree to be used as an octave. This points to a scale degree 
+! in the SCL file, and if that entry isn't 2/1, then we have octaves which 
+! do not double. How xenharmonic!
+12
+! The mapping itself.  There should be 12 entries, as that's what we've 
+! said at the top of the file. This should be an integer or an "x"
+! (the x meaning that the degree isn't mapped). It's a little confusing, but
+! keep in mind that *these* entries are scale degrees, not MIDI notes like 
+! most of the entries in this file.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11

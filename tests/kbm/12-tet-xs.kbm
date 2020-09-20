@@ -1,0 +1,29 @@
+! Scala keyboard mapping file, 12-tet
+!
+!  This is the 12 TET, but with non-entries.
+12
+!
+0
+!
+127
+!
+60
+!
+69
+!
+440.0
+!
+12
+! Every odd entry is bank. We'll check that in the test....
+0
+x
+2
+x
+4
+x
+6
+x
+8
+x
+10
+x

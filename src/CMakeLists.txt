@@ -2,7 +2,7 @@
 
 set(BUILD_SHARED_LIBS OFF)
 
-add_library (scala-file scala_file.cpp)
+add_library (scala-file scala_scl.cpp scala_kbm.cpp)
 
 # This is kind of fun: We tell the build system that anything linking
 # with this has to include this directory for includes. We don't have 

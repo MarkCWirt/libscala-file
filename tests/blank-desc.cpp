@@ -10,7 +10,7 @@ using namespace std;
 int main(int, char**) {
     ifstream test_scale; 
     test_scale.open("scales/blank-desc.scl");
-    scala::scale loaded_scale = scala::read_file(test_scale);
+    scala::scale loaded_scale = scala::read_scl(test_scale);
 
     /*
         This test ensures that a blank description is handled OK

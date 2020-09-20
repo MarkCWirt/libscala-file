@@ -1,4 +1,3 @@
-
 # Load a 12-TET with messy formatting
 add_executable (test-tet-12 tet-12.cpp)
 target_link_libraries(test-tet-12 PUBLIC scala-file)
@@ -34,6 +33,17 @@ add_executable (test-valid valid.cpp)
 target_link_libraries(test-valid PUBLIC scala-file)
 add_test(NAME "Random-valid-intervals" COMMAND test-valid)
 
+# Test the KBM mapping parser
+add_executable (test-kbm kbm.cpp)
+target_link_libraries(test-kbm PUBLIC scala-file)
+add_test(NAME "Keyboard-mapping" COMMAND test-kbm)
+
+# Ensure the KBM parser honors x's.
+add_executable (test-kbm-xs kbm-xs.cpp)
+target_link_libraries(test-kbm-xs PUBLIC scala-file)
+add_test(NAME "Keyboard-mapping-with-non-entries" COMMAND test-kbm-xs)
+
 # This copies our test data into our build directory, so that our tests 
 # have access to it.
 file(COPY scales DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY kbm DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
