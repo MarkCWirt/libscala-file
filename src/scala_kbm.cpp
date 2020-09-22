@@ -87,9 +87,9 @@ namespace scala {
                 }
             }
         }
-        if (keyboard_mapping.map_size != keyboard_mapping.mapping.size()){
+        if (static_cast <size_t> (keyboard_mapping.map_size) != keyboard_mapping.mapping.size()){
             // This is an error, strict mode or not 
-            if (keyboard_mapping.map_size < keyboard_mapping.mapping.size()){
+            if (static_cast <size_t> (keyboard_mapping.map_size) < keyboard_mapping.mapping.size()){
                 throw std::runtime_error("ERROR: Too few entires in mapping file");
             } else {
                 throw std::runtime_error("ERROR: Too many entires in mapping file");
