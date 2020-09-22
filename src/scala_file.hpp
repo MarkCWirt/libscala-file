@@ -83,12 +83,12 @@ namespace scala {
     };
 
     struct kbm {
+        double reference_frequency;
         int map_size;
         int first_note;
         int last_note;
         int middle_note;
         int reference_note;
-        double reference_frequency;
         int octave_degree;
         std::vector <int> mapping;
 
