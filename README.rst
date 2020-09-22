@@ -1,26 +1,6 @@
 ``libscala-file``: A Library for Reading Scala Scale Files
 ==========================================================
 
-
-**Note**: This project is something of a "hello world." I am interested in 
-learning C++ development, so I used this work to create a 
-"complete and correct" C++ project, meaning:
-
-- It can be built and installed in a reasonable way. For this I chose CMake.
-- It has unit tests and a way to exercise them. Again, I chose CTest (part of 
-  CMake).
-- I could create a reasonable development environment to work with the code.
-
-As such, the code may be a bit wonky.  I believe it works and does what it 
-is supposed to, but I don't know if the coding is idiomatic for C++, or even 
-what idiomatic C++ code *is*.
-
-(If you're curious about the development environment I created to work with 
-the code, I chose VS Code, with the ``C/C++``, ``C++ Advanced Linting``,
-and ``CMake Tools`` extensions. The linting tool is configured to use 
-``Cppcheck`` and CLang (I'm on Linux). I'm not really a fan of Microsoft products,
-but VS Code is not horrible (I use it in  my day job for Python development).)
-
 About 
 -----
 
@@ -33,6 +13,12 @@ can use it in your C/C++ code to to read these files, should you need to.
 Use 
 ---
 
+The SCL File
+.............
+
+The ``.scl`` file encodes the scale's degrees, and can be accessed with the 
+``scala::read_scale()`` method.
+
 ::
 
   #include "scala_file.hpp"
@@ -41,8 +27,8 @@ Use
   ifstream test_scale;
   test_scale.open("scale.scl");
 
-  // Pass it to read_file to get a scale
-  scala::scale loaded_scale = scala::read_file(test_scale);
+  // Pass it to read_scl to get a scale
+  scala::scale loaded_scale = scala::read_scl(test_scale);
 
 The return value is a ``scala::scale``, a small interface wrapping 
 a vector of the scale degrees.  They can be queried for the 
@@ -51,7 +37,7 @@ to the following code::
 
     ifstream test_scale;
     test_scale.open("scales/tet-12.scl");
-    scala::scale scale = scala::read_file(test_scale);
+    scala::scale scale = scala::read_scl(test_scale);
 
       for (int i = 0; i < scale.get_scale_length(); i++ ){
         cout << "Degree:  "<< i << " Ratio: " << scale.get_ratio(i) << endl;
@@ -75,7 +61,7 @@ we would see the following output:
   Degree:  11 Ratio: 1.88775
   Degree:  12 Ratio: 2
 
-``get_scale_length()`` and ``get_ratio()`` are the two main functions exposed.
+``scala::get_scale_length()`` and ``scala::get_ratio()`` are the two main functions exposed.
 
 The format for the file itself can be found 
 `here <http://www.huygens-fokker.org/scala/scl_format.html>`__ .
@@ -105,13 +91,42 @@ effort is made to continue when unintelligible lines are encountered).
 
 Note that if you do this the TET-12 test will not pass.
 
-The File Format 
----------------
+Keyboard Mapping Files 
+......................
 
-The link above gives the actual specification of the file; this is but a 
+Scala also defines a keyboard mapping file what maps MIDI note-numbers to 
+scale degrees.  These files can be parsed with the ``scala::read_kbm()``
+function::
+
+  #include "scala_file.hpp"
+  ifstream test_kbm; 
+  test_kbm.open("kbm/12-tet.kbm");
+  scala::kbm loaded_kbm = scala::read_kbm(test_kbm);
+
+The return value is of type ``scala::kbm``, a light-weight structure capturing 
+the values of the input.
+
+::
+
+  struct kbm {
+    // Data items
+    int map_size;
+    int first_note;
+    int last_note;
+    int middle_note;
+    int reference_note;
+    double reference_frequency;
+    int octave_degree;
+    std::vector <int> mapping;
+    // Member function...
+
+The File Formats
+----------------
+
+The link above gives the actual specifications of the files; this is but a 
 brief adumbration.
 
-The file format itself consists of:
+The ``.scl`` file format itself consists of:
 
 - A short one-line description of the file. Can be blank.
 - The number of degrees specified in the file. Integer
@@ -167,7 +182,78 @@ A Pythagorean scale could be specified::
     2/1
 
 
+The ``.kbm`` file is similar in structure: it contains numerical entries and 
+optional comments denoted by ``!`` in the first column.  As an example of this 
+format, the following would be suitable for a standard mapping of 12-TET.
 
+::
+
+    ! Scala keyboard mapping file, 12-tet
+    !
+    ! This keyboard mapping file could be used with a 12 TET tuning 
+    ! file to create a totally non-microtonal microtonal system.
+    !
+    ! Map size. There should be an entry for each at the end.
+    12
+    ! First input degree to map. These are MIDI note numbers. Internally 
+    ! MIDI uses a 0-based numbering scheme, although most of the user 
+    ! documentation hides this fact. Scala uses 0-based measures.
+    0
+    ! Last degree to map. Again, a MIDI note number
+    127
+    ! MIDI note that corresponds to degree 0 of the mapping. In the documentation this is 
+    ! called the "middle" note.  Not exactly sure why, but this convention is followed here
+    ! (for example, in the struct returned from read_kbm).
+    60
+    ! Reference note (MIDI number). For absolute tuning.
+    69
+    ! Frequency of the reference note. Hertz. Float.
+    440.0
+    ! Scale degree to be used as an octave. This points to a scale degree 
+    ! in the SCL file, and if that entry isn't 2/1, then we have octaves which 
+    ! do not double. How xenharmonic!
+    12
+    ! The mapping itself.  There should be 12 entries, as that's what we've 
+    ! said at the top of the file. This should be an integer or an "x"
+    ! (the x meaning that the degree isn't mapped). It's a little confusing, but
+    ! keep in mind that *these* entries are scale degrees, not MIDI notes like 
+    ! most of the entries in this file.
+    0
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    11
+
+If a degree shouldn't be mapped -- in other words, it will not be  assigned to 
+any MIDI note, an ``x`` can be placed in the mapping instead of a degree. So
+in the following::
+
+    0
+    1
+    x
+    3
+    4
+    5
+
+the first, second, and fourth MIDI notes will be mapped (to degrees 0, 1, and 3, 
+respectively), but the third note will not.
+
+Please see `this page <http://www.huygens-fokker.org/scala/help.htm#mappings>`__ for
+a more detailed explanation of the format.
+
+If ``SCALA_STRICT`` is defined:
+
+- The comment character must be in the first line. Otherwise leading 
+  whitespace is allowed.
+- The ``x`` used to denote an unmapped note must be lower-case. In lax 
+  mode a capital ``X`` can also be used.
 
 Compiling and Installing 
 ------------------------
@@ -193,8 +279,8 @@ error conditions. Some compilers (such as GCC) will optimize those asserts
 out in Release mode, making all tests evergreen. You should build in Debug mode 
 if you're running the testing target.
 
-The test suite will run seven different input files. They should run without issue
-(unless you're compiling in strict mode, in which case six of the tests 
+The test suite will run nine different input files. They should run without issue
+(unless you're compiling in strict mode, in which case eight of the tests 
 will pass).
 
 By default your system will probably try to install to ``/usr/local``

@@ -14,6 +14,8 @@
 
 // #define SCALA_STRICT
 
+#define KBM_NON_ENTRY -1
+
 namespace scala {
 
     struct degree {
@@ -80,5 +82,69 @@ namespace scala {
 
     };
 
-    scale read_file(std::ifstream& input_file);
+    struct kbm {
+        int map_size;
+        int first_note;
+        int last_note;
+        int middle_note;
+        int reference_note;
+        double reference_frequency;
+        int octave_degree;
+        std::vector <int> mapping;
+
+        kbm(){
+            map_size = 0;
+            first_note = 0;
+            last_note = 0;
+            middle_note = 0;
+            reference_note = 0;
+            reference_frequency = 0.0;
+            octave_degree = 0;
+        }
+
+        ~kbm(){
+            mapping.clear();
+            std::vector<int>().swap(mapping);
+        }
+
+        kbm( const kbm &k2){
+            for (size_t i = 0; i < k2.mapping.size(); i++) {
+                mapping.push_back(k2.mapping[i]); 
+            }
+            map_size = k2.map_size;
+            first_note = k2.first_note;
+            last_note = k2.last_note;
+            middle_note = k2.middle_note;
+            reference_note = k2.reference_note;
+            reference_frequency = k2.reference_frequency;
+            octave_degree = k2.octave_degree;
+        }
+
+        kbm& operator=(const kbm &k2){
+            std::vector <int> new_mapping;
+            for (size_t i = 0; i < k2.mapping.size(); i++) {
+                new_mapping.push_back(k2.mapping[i]);
+            }
+            mapping.swap(new_mapping);
+            new_mapping.clear();
+
+            map_size = k2.map_size;
+            first_note = k2.first_note;
+            last_note = k2.last_note;
+            middle_note = k2.middle_note;
+            reference_note = k2.reference_note;
+            reference_frequency = k2.reference_frequency;
+            octave_degree = k2.octave_degree;
+
+            return *this;
+        }
+
+        void add_mapping(int n) {
+            mapping.push_back(n);
+        }
+
+    };
+
+    scale read_scl(std::ifstream& input_file);
+    kbm read_kbm(std::ifstream& input_file);
 }

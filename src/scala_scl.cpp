@@ -12,7 +12,7 @@
 #include "scala_file.hpp"
 
 namespace scala {
-    scale read_file(std::ifstream& input_file){ 
+    scale read_scl(std::ifstream& input_file){ 
         /* 
         C++ Code to parse the Scala scale file, as documented here:
 
